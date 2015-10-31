@@ -27,12 +27,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import controller.InvertedIndexController;
+
 public class InvertedIndexView extends JPanel implements IInvertedIndexView, ActionListener, KeyListener  {
 	private MainFrame mainFrame;
 
 	/** Controller */
 	//private StringAlignerController controller;
 	// BacktrackController backtrackController;
+	private InvertedIndexController controller;
 	
         private Object [][] grid;
         private Object [][] results;
@@ -53,6 +56,7 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
             setLayout(null);
            // controller = new StringAlignerController(this);
            // backtrackController = new BacktrackController(this);
+            controller = new InvertedIndexController(this);
 
             //JLabel lblSex = new JLabel("SEX");
             //lblSex.setBounds(216, 5, 18, 14);
