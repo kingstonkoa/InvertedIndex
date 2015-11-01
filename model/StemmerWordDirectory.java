@@ -2,11 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
+import utilities.TxtReader;
+
 public class StemmerWordDirectory {
 	
 	private ArrayList<String> stopWords;
+	private TxtReader txtReader;
 	
 	public StemmerWordDirectory() {
+		txtReader = new TxtReader();
 		initializeStopWords();
 	}
 		

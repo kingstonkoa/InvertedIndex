@@ -9,6 +9,11 @@ public class TagalogStemmer {
 	private ArrayList<String> tokens;
 	private StemmerWordDirectory directory;
 	
+	public TagalogStemmer() {
+		directory = new StemmerWordDirectory();
+		tokens = new ArrayList<String>();
+	}
+	
 	public ArrayList<String> getStems(ArrayList<String> tokens) {
 		
 		ArrayList<String> result = new ArrayList<String>();
@@ -16,9 +21,11 @@ public class TagalogStemmer {
 		for(String token: tokens){ 
 			
 			if(checkIfStopWord(token)) {
-				
+				// does not add to result
 			}
-//			else if ()
+			else {
+				result.add(simpleStem(token));
+			}
 				
 			
 		}
@@ -26,8 +33,16 @@ public class TagalogStemmer {
 		
 	}
 
+	private String simpleStem(String token) {
+		token = token.replaceAll("mag", "");
+		return token;
+	}
+
 	private boolean checkIfStopWord(String token) {
-		// TODO Auto-generated method stub
+		for(String stopWord : directory.getStopWords()) {
+			if(token.equalsIgnoreCase(stopWord))
+				return true;
+		}
 		return false;
 	}
 	
