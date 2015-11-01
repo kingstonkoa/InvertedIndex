@@ -1,11 +1,13 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import utilities.CSVOutputGenerator;
 import utilities.OutputGenerator;
+import utilities.TagalogStemmer;
 import utilities.TxtReader;
 import view.IInvertedIndexView;
 
@@ -14,8 +16,9 @@ public class InvertedIndexController {
         private IInvertedIndexView view;
         private ArrayList<String> inputTokens = new ArrayList<>();
         private ArrayList<String> documentData = new ArrayList<>();
-        private HashMap<String, ArrayList<String>> invertedIndex = new HashMap<String, ArrayList<String>>();
+        private HashMap<String, ArrayList<Integer>> invertedIndex = new HashMap<String, ArrayList<Integer>>();
         private ArrayList<Integer> tempArrayList = new ArrayList<>();
+        private TagalogStemmer stemmer;
 
         public InvertedIndexController(IInvertedIndexView view) {
                 this.view = view;
@@ -34,6 +37,7 @@ public class InvertedIndexController {
 		while (st.hasMoreElements()) {
 			inputTokens.add((String) st.nextElement());
 		}
+                /**insert stemmer on inputTokens*/
                 
                 for(int i = 0; i < inputTokens.size(); i++)
                 {
@@ -42,12 +46,9 @@ public class InvertedIndexController {
                     if(documentData.get(i).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
                         tempArrayList.add(i+1);
                     }
+                    invertedIndex.put(inputTokens.get(i), tempArrayList);
+                    
                 }
-
-               /*
-                kingstonArrayList = new ArrayList<String>();
-                hasmapVar.put("Kingston", kingstonArrayList);
-                */
 
                 /** STEP 6 generate output */
                 //CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
@@ -60,5 +61,6 @@ public class InvertedIndexController {
             TxtReader txtReader = new TxtReader();
             documentData = txtReader.getDocumentsList();
         }
+
 
 }
