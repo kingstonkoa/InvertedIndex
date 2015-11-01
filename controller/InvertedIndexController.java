@@ -25,35 +25,35 @@ public class InvertedIndexController {
         }
 
         public void constructInvertedIndex() {
-                /** STEP 1 tokenize db? */
-                /** STEP 2 tokenize input */
-                /** STEP 3 save to inputTokens */
-                /** STEP 4 search db for substring */
-                /** STEP 5 save to invertedIndex */
-                String input = view.getInput();
-                
-                /** tokenize the input*/
-		StringTokenizer st = new StringTokenizer(input);
-		while (st.hasMoreElements()) {
-			inputTokens.add((String) st.nextElement());
-		}
-                /**insert stemmer on inputTokens*/
-                
-                for(int i = 0; i < inputTokens.size(); i++)
-                {
-                    for(int j = 0; j < documentData.size(); j++)
-                    {
-                    if(documentData.get(i).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
-                        tempArrayList.add(i+1);
-                    }
-                    invertedIndex.put(inputTokens.get(i), tempArrayList);
-                    
-                }
+        /** STEP 1 tokenize db? */
+        /** STEP 2 tokenize input */
+        /** STEP 3 save to inputTokens */
+        /** STEP 4 search db for substring */
+        /** STEP 5 save to invertedIndex */
+        String input = view.getInput();
 
-                /** STEP 6 generate output */
-                //CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
-                //OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
-                //outputGenerator.generateOutput(invertedIndex);
+        /** tokenize the input*/
+        StringTokenizer st = new StringTokenizer(input);
+        while (st.hasMoreElements()) {
+                inputTokens.add((String) st.nextElement());
+        }
+        /**insert stemmer on inputTokens*/
+
+        for(int i = 0; i < inputTokens.size(); i++)
+        {
+            for(int j = 0; j < documentData.size(); j++)
+            {
+            if(documentData.get(i).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
+                tempArrayList.add(i+1);
+            }
+            invertedIndex.put(inputTokens.get(i), tempArrayList);
+
+        }
+
+        /** STEP 6 generate output */
+        //CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
+        //OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
+        //outputGenerator.generateOutput(invertedIndex);
         }
 
         public void ReadTxtFiles()
