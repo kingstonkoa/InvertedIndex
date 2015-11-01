@@ -36,6 +36,7 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
 	//private StringAlignerController controller;
 	// BacktrackController backtrackController;
 	private InvertedIndexController controller;
+        
 	
         private Object [][] grid;
         private Object [][] results;
@@ -58,6 +59,7 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
            // controller = new StringAlignerController(this);
            // backtrackController = new BacktrackController(this);
             controller = new InvertedIndexController(this);
+            controller.ReadTxtFiles(); // get txt data
 
             //JLabel lblSex = new JLabel("SEX");
             //lblSex.setBounds(216, 5, 18, 14);

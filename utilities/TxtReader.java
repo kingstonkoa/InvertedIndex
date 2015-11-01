@@ -40,7 +40,6 @@ public class TxtReader
 			  }
     	}
     }
-    
 
     public ArrayList<String> getDocumentsList()
     {
