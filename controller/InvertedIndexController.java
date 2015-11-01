@@ -17,7 +17,7 @@ public class InvertedIndexController {
 		this.view = view;
 	}
 	
-	public void constructInvertedIndex() {
+	public void constructInvertedIndex(String input) {
 		/** STEP 1 tokenize db? */
 		/** STEP 2 tokenize input */
 		/** STEP 3 save to inputTokens */
