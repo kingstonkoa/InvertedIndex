@@ -20,6 +20,7 @@ public class InvertedIndexController {
 	public void constructInvertedIndex() {
                 String input = view.getInput();
                 System.out.println(input);
+
 		/** STEP 1 tokenize db? */
 		/** STEP 2 tokenize input */
 		/** STEP 3 save to inputTokens */
