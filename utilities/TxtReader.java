@@ -42,9 +42,9 @@ public class TxtReader
     	}
     }
     
-    public void StopWordsTxtReader() {
+    public void readPerLineToArrayList(String fileDirectory ) {
                     try{
-                      FileInputStream fstream = new FileInputStream("src/resources/fil-function-words.txt");
+                      FileInputStream fstream = new FileInputStream(fileDirectory); //"src/resources/fil-function-words.txt"
 
                       DataInputStream in = new DataInputStream(fstream);
                       BufferedReader br = new BufferedReader(new InputStreamReader(in));
