@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class StemmerWordDirectory {
 	private ArrayList<String> stopWords;
-
+	
+	
+	
 	public ArrayList<String> getStopWords() {
 		return stopWords;
 	}
