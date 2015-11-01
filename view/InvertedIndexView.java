@@ -51,6 +51,7 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
         private JLabel firstWord;
         private JLabel secondWord;
         private JScrollPane scrollPane;
+    private String input;
 
     public InvertedIndexView(MainFrame mainFrame) {
             setLayout(null);
@@ -162,7 +163,14 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-        System.out.println("hello");
+         input = txtSecondWord.getText();
+         controller.constructInvertedIndex();
+    }
+    
+        @Override
+    public String getInput()
+    {
+    return this.input;
     }
     
     
