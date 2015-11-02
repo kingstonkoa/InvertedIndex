@@ -44,7 +44,7 @@ public class TxtReader
     
     public void readStopWords() {
                     try{
-                      FileInputStream fstream = new FileInputStream("src/resources/fil-function-words.txt");
+                      FileInputStream fstream = new FileInputStream("src/resources/fil-function-words.txt"); //"src/resources/fil-function-words.txt"
 
                       DataInputStream in = new DataInputStream(fstream);
                       BufferedReader br = new BufferedReader(new InputStreamReader(in));
