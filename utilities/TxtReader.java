@@ -25,8 +25,9 @@ public class TxtReader
 			
 			  DataInputStream in = new DataInputStream(fstream);
 			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			  String strLine;
-	
+			  String strLine = "";
+			  
+			  stringBuilder = new StringBuilder();
 			  while ((strLine = br.readLine()) != null){
 			      stringBuilder.append(strLine);
 			  }
