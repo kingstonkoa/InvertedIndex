@@ -52,7 +52,7 @@ public class TxtReader
                       String strLine;
 
                       while ((strLine = br.readLine()) != null){
-                          stopWordsAL.add(strLine);
+                          stopWordsAL.add(strLine.trim());
                           //stringBuilder.append(strLine);
                       }
                       //Close the input stream
