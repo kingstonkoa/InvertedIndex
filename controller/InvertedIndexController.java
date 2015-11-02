@@ -45,6 +45,7 @@ public class InvertedIndexController {
         /** stem inputs */
         inputTokens = stemmer.getStems(inputTokens);
         
+        invertedIndex = new HashMap<String, ArrayList<Integer>>();
         /** add result to hashmap */
         for(int i = 0; i < inputTokens.size(); i++)
         {
