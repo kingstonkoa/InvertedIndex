@@ -50,10 +50,11 @@ public class InvertedIndexController {
         {
             for(int j = 0; j < documentData.size(); j++)
             {
-            if(documentData.get(i).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
-                tempArrayList.add(i+1);
+            if(documentData.get(j).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
+                tempArrayList.add(j+1);
             }
             invertedIndex.put(inputTokens.get(i), tempArrayList);
+
         }
 
         /** STEP 6 generate output */
