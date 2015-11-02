@@ -54,7 +54,7 @@ public class InvertedIndexController {
                 tempArrayList.add(j+1);
             }
             invertedIndex.put(inputTokens.get(i), tempArrayList);
-
+            tempArrayList = new ArrayList<>();
         }
 
         /** STEP 6 generate output */
