@@ -14,14 +14,19 @@ import view.IInvertedIndexView;
 public class InvertedIndexController {
 
         private IInvertedIndexView view;
-        private ArrayList<String> inputTokens = new ArrayList<>();
-        private ArrayList<String> documentData = new ArrayList<>();
-        private HashMap<String, ArrayList<Integer>> invertedIndex = new HashMap<String, ArrayList<Integer>>();
-        private ArrayList<Integer> tempArrayList = new ArrayList<>();
+        private ArrayList<String> inputTokens;
+        private ArrayList<String> documentData;
+        private HashMap<String, ArrayList<Integer>> invertedIndex;
+        private ArrayList<Integer> tempArrayList;
         private TagalogStemmer stemmer;
 
         public InvertedIndexController(IInvertedIndexView view) {
                 this.view = view;
+                inputTokens = new ArrayList<>();
+                documentData = new ArrayList<>();
+                tempArrayList = new ArrayList<>();
+                invertedIndex = new HashMap<String, ArrayList<Integer>>();
+                stemmer = new TagalogStemmer();
         }
 
         public void constructInvertedIndex() {
@@ -37,8 +42,10 @@ public class InvertedIndexController {
         while (st.hasMoreElements()) {
                 inputTokens.add((String) st.nextElement());
         }
-        /**insert stemmer on inputTokens*/
-
+        /** stem inputs */
+        inputTokens = stemmer.getStems(inputTokens);
+        
+        /** add result to hashmap */
         for(int i = 0; i < inputTokens.size(); i++)
         {
             for(int j = 0; j < documentData.size(); j++)
@@ -47,13 +54,12 @@ public class InvertedIndexController {
                 tempArrayList.add(i+1);
             }
             invertedIndex.put(inputTokens.get(i), tempArrayList);
-
         }
 
         /** STEP 6 generate output */
-        //CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
-        //OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
-        //outputGenerator.generateOutput(invertedIndex);
+        CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
+        OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
+        outputGenerator.generateOutput(invertedIndex);
         }
 
         public void ReadTxtFiles()

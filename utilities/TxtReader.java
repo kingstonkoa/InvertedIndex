@@ -42,7 +42,7 @@ public class TxtReader
     	}
     }
     
-    public void StopWordsTxtReader() {
+    public void readStopWords() {
                     try{
                       FileInputStream fstream = new FileInputStream("src/resources/fil-function-words.txt");
 

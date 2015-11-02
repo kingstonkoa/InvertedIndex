@@ -11,8 +11,9 @@ public class OutputGenerator {
 		this.builder = builder;
 	}
 	
-	public void generateOutput( HashMap<String, ArrayList<String>> result ) {
+	public void generateOutput( HashMap<String, ArrayList<Integer>> result ) {
 		builder.parseOutput(result);
 		builder.generateOutput();
 	}
+
 }

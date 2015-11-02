@@ -24,6 +24,7 @@ public class TagalogStemmer {
 				// does not add to result
 			}
 			else {
+				/** stem word */
 				result.add(simpleStem(token));
 			}
 				

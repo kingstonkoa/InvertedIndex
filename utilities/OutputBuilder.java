@@ -6,6 +6,6 @@ import java.util.HashMap;
 public abstract class OutputBuilder {
 
 	abstract void generateOutput();
-	abstract void parseOutput(HashMap<String, ArrayList<String>> result);
+	abstract void parseOutput(HashMap<String, ArrayList<Integer>> result);
 
 }

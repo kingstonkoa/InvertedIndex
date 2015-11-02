@@ -15,7 +15,8 @@ public class StemmerWordDirectory {
 	}
 		
 	private void initializeStopWords() {
-		
+		txtReader.readStopWords();
+		stopWords = txtReader.getStopWordsList();
 	}
 
 	public ArrayList<String> getStopWords() {
