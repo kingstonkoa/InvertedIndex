@@ -38,6 +38,7 @@ public class InvertedIndexController {
         String input = view.getInput();
 
         /** tokenize the input*/
+        inputTokens = new ArrayList<String>();
         StringTokenizer st = new StringTokenizer(input);
         while (st.hasMoreElements()) {
                 inputTokens.add((String) st.nextElement());
