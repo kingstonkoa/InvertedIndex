@@ -40,7 +40,7 @@ public class TagalogStemmer {
 	}
 
 	private boolean checkIfStopWord(String token) {
-		for(String stopWord : directory.getStopWords()) 
+		for(String stopWord : directory.getStopWords()) {
 			if(token.equalsIgnoreCase(stopWord))
 				return true;
 		}
