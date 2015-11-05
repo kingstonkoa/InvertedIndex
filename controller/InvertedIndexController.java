@@ -52,13 +52,46 @@ public class InvertedIndexController {
         {
             for(int j = 0; j < documentData.size(); j++)
             {
-            if(documentData.get(j).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
-                tempArrayList.add(j+1);
+	            if(documentData.get(j).toLowerCase().contains(inputTokens.get(i).toLowerCase()))
+	                tempArrayList.add(j+1);
             }
             invertedIndex.put(inputTokens.get(i), tempArrayList);
             tempArrayList = new ArrayList<>();
         }
-
+        String combinedInput = "";
+        /** add more to hashmap oyeh!! */
+        for(int i = 0; i < inputTokens.size(); i++)
+        {
+        	combinedInput+= inputTokens.get(i) + " ";
+        }
+        combinedInput = combinedInput.trim();
+        for(int j = 0; j < documentData.size(); j++)
+        {
+            if(documentData.get(j).toLowerCase().contains(combinedInput.toLowerCase()))
+                tempArrayList.add(j+1);
+        }
+        invertedIndex.put(combinedInput, tempArrayList);
+        tempArrayList = new ArrayList<>();
+        
+        boolean found = true;
+        /** add more to hashmap hiwahiwalay!!! */
+        for(int i = 0; i < documentData.size(); i++)
+        {
+        	for(String inputString: inputTokens) {
+        		if(!(documentData.get(i).toLowerCase().contains(inputString.toLowerCase()))) {
+        			found = false;
+        			break;
+        		}
+        		else found = true;
+        	}
+        	if(found==true){
+        		tempArrayList.add(i+1);
+        	}
+        }
+        invertedIndex.put(combinedInput+" HIWAHIWALAY", tempArrayList);
+        tempArrayList = new ArrayList<>();
+        
+        
         /** STEP 6 generate output */
         CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
         OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
