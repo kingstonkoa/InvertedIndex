@@ -141,7 +141,7 @@ public class InvertedIndexController {
                 }
                
                 if(frequency == 0)
-                    detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(0.0));
+                    detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(0.0)); //formula 1+ log(tf)
                 else
                     detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(1+Math.log10(frequency)));
                 
@@ -175,6 +175,69 @@ public class InvertedIndexController {
             }
         
         public void constructInvertedIndex2(){
+            String input = view.getInput();
+            /*1**/
+            inputTokens = new ArrayList<String>();
+            StringTokenizer st = new StringTokenizer(input);
+            while (st.hasMoreElements()) {
+                    inputTokens.add((String) st.nextElement());
+        }
+            /** stem inputs */
+            inputTokens = stemmer.getStems(inputTokens);
+            invertedIndex = new HashMap<String, ArrayList<Integer>>();
+        
+            /*2**/
+            for(int i = 0; i < documentData.size(); i++)
+            {
+            Document tempDocument = new Document(i+1, documentData.get(i), 0.00);
+            detailedDocumentList.add(tempDocument);
+            }
+            /*3**/
+            for(int i = 0; i < inputTokens.size(); i++)
+            {
+                int df = getDocumentFrequency(inputTokens.get(i));
+                for(int j = 0; j < detailedDocumentList.size(); j++ )
+                {
+               String str = detailedDocumentList.get(j).getContent().toLowerCase();
+                Pattern p = Pattern.compile(inputTokens.get(i).toLowerCase());
+                Matcher m = p.matcher(str);
+                int frequency = 0;
+                while (m.find()){
+                    frequency += 1;
+                }
+               
+                if(frequency == 0)
+                    detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(0.0*(Math.log10(303/df)))); // formula 1+log(tf)* log(N/df)
+                else
+                    detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(1+Math.log10(frequency)*(Math.log10(303/df))));
+                
+                }
+                
+            }
+            /*print score**/
+               for(int j = 0; j < detailedDocumentList.size(); j++ )
+                {
+               System.out.println(j+1 +" Score = "+detailedDocumentList.get(j).getScore());
+                
+                }
+            /*4**/
+            Collections.sort(detailedDocumentList);
+            Collections.reverse(detailedDocumentList);
+            for(int i = 0; i< detailedDocumentList.size(); i++)
+            {
+            if(detailedDocumentList.get(i).getScore() == Double.valueOf(0))
+                detailedDocumentList.remove(i);
+                else
+                {
+                    tempArrayList.add(detailedDocumentList.get(i).getId());
+                }
+            }
+            invertedIndex.put(input, tempArrayList);
+            tempArrayList = new ArrayList<>();
+            /*5**/
+            CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
+            OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
+            outputGenerator.generateOutput(invertedIndex, "ranked search activity 2.csv");
         
         }
 
@@ -183,6 +246,19 @@ public class InvertedIndexController {
             TxtReader txtReader = new TxtReader();
             documentData = txtReader.getDocumentsList();
         }
+
+    private int getDocumentFrequency(String token)
+    {
+        int df = 0;
+            for(int j = 0; j < documentData.size(); j++)
+            {
+	            if(documentData.get(j).toLowerCase().contains(token.toLowerCase()))
+                        df += 1;
+	                
+            }
+           return df;
+        
+    }
 
 
 }
