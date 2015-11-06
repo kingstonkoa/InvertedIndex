@@ -9,13 +9,13 @@ package model;
  *
  * @author Kingston
  */
-public class Document
+public class Document implements Comparable <Document>
 {
     private int id;
     private String content;
-    private int score;
+    private double score;
 
-    public Document(int id, String content, int score)
+    public Document(int id, String content, double score)
     {
         this.id = id;
         this.content = content;
@@ -42,13 +42,19 @@ public class Document
         this.content = content;
     }
 
-    public int getScore()
+    public double getScore()
     {
         return score;
     }
 
-    public void setScore(int score)
+    public void setScore(double score)
     {
         this.score = score;
+    }
+
+
+    @Override
+    public int compareTo(Document that) {
+        return Double.valueOf(this.score).compareTo(that.score);
     }
 }

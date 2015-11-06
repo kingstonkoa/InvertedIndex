@@ -2,8 +2,12 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import model.Document;
 
 import utilities.CSVOutputGenerator;
 import utilities.OutputGenerator;
@@ -18,6 +22,7 @@ public class InvertedIndexController {
         private ArrayList<String> documentData;
         private HashMap<String, ArrayList<Integer>> invertedIndex;
         private ArrayList<Integer> tempArrayList;
+        private ArrayList<Document> detailedDocumentList;
         private TagalogStemmer stemmer;
 
         public InvertedIndexController(IInvertedIndexView view) {
@@ -25,6 +30,7 @@ public class InvertedIndexController {
                 inputTokens = new ArrayList<>();
                 documentData = new ArrayList<>();
                 tempArrayList = new ArrayList<>();
+                detailedDocumentList = new ArrayList<>();
                 invertedIndex = new HashMap<String, ArrayList<Integer>>();
                 stemmer = new TagalogStemmer();
         }
@@ -99,8 +105,74 @@ public class InvertedIndexController {
         }
         
         public void constructInvertedIndex1(){
-        
+        /*STEP 1: tokenize and stem input**/
+        /*STEP 2: place all data on ArrayList<Document> w/ score for each document is 0**/
+        /*STEP 3: transverse through tokens and count the term frequency and update the score for each document**/
+        /*STEP 4: arrange document by score**/
+        /*STEP 5: place on csv file with name "ranked search activity 1.csv"**/   
+            String input = view.getInput();
+            /*1**/
+            inputTokens = new ArrayList<String>();
+            StringTokenizer st = new StringTokenizer(input);
+            while (st.hasMoreElements()) {
+                    inputTokens.add((String) st.nextElement());
         }
+            /** stem inputs */
+            inputTokens = stemmer.getStems(inputTokens);
+            invertedIndex = new HashMap<String, ArrayList<Integer>>();
+        
+            /*2**/
+            for(int i = 0; i < documentData.size(); i++)
+            {
+            Document tempDocument = new Document(i+1, documentData.get(i), 0.00);
+            detailedDocumentList.add(tempDocument);
+            }
+            /*3**/
+            for(int i = 0; i < inputTokens.size(); i++)
+            {
+                for(int j = 0; j < detailedDocumentList.size(); j++ )
+                {
+               String str = detailedDocumentList.get(j).getContent().toLowerCase();
+                Pattern p = Pattern.compile(inputTokens.get(i).toLowerCase());
+                Matcher m = p.matcher(str);
+                int frequency = 0;
+                while (m.find()){
+                    frequency += 1;
+                }
+               
+                if(frequency == 0)
+                    detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(0.0));
+                else
+                    detailedDocumentList.get(j).setScore(detailedDocumentList.get(j).getScore()+(1+Math.log10(frequency)));
+                
+                }
+                
+            }
+            /*print score**/
+               for(int j = 0; j < detailedDocumentList.size(); j++ )
+                {
+               System.out.println(j+1 +" Score = "+detailedDocumentList.get(j).getScore());
+                
+                }
+            /*4**/
+            Collections.sort(detailedDocumentList);
+            Collections.reverse(detailedDocumentList);
+            for(int i = 0; i< detailedDocumentList.size(); i++)
+            {
+            if(detailedDocumentList.get(i).getScore() == Double.valueOf(0))
+                detailedDocumentList.remove(i);
+                else
+                {
+                    tempArrayList.add(detailedDocumentList.get(i).getId());
+                }
+            }
+            invertedIndex.put(input, tempArrayList);
+            tempArrayList = new ArrayList<>();
+            /*5**/
+            CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
+            OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
+            outputGenerator.generateOutput(invertedIndex, "ranked search activity 1.csv");
+            }
         
         public void constructInvertedIndex2(){
         
