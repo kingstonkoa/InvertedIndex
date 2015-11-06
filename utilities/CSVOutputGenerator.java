@@ -16,10 +16,10 @@ public class CSVOutputGenerator extends OutputBuilder {
 	}
 	
 	@Override
-	void generateOutput() {
+	void generateOutput(String csvName) {
 		/** Create File */
 		File file = null;
-		String fileName = "Results.csv";
+		String fileName = csvName;
 		try
 		{
 			file = new File(fileName);

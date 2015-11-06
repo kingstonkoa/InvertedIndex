@@ -95,7 +95,15 @@ public class InvertedIndexController {
         /** STEP 6 generate output */
         CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
         OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
-        outputGenerator.generateOutput(invertedIndex);
+        outputGenerator.generateOutput(invertedIndex, "boolean results.csv");
+        }
+        
+        public void constructInvertedIndex1(){
+        
+        }
+        
+        public void constructInvertedIndex2(){
+        
         }
 
         public void ReadTxtFiles()

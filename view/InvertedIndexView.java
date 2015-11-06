@@ -28,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import controller.InvertedIndexController;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 public class InvertedIndexView extends JPanel implements IInvertedIndexView, ActionListener, KeyListener  {
 	private MainFrame mainFrame;
@@ -52,7 +54,8 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
         private JLabel firstWord;
         private JLabel secondWord;
         private JScrollPane scrollPane;
-    private String input;
+        private String input;
+        private ButtonGroup group;
 
     public InvertedIndexView(MainFrame mainFrame) {
             setLayout(null);
@@ -109,6 +112,32 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
                 }
              });
             
+            JRadioButton booleanButton = new JRadioButton("boolean search");
+            booleanButton.setBounds(275, 200, 150, 30);
+            booleanButton.setMnemonic(KeyEvent.VK_B);
+            booleanButton.setActionCommand("boolean search");
+            booleanButton.setSelected(true);
+
+            JRadioButton ranked1Button = new JRadioButton("ranked retrieval 1");
+            ranked1Button.setBounds(275, 220, 150, 30);
+            ranked1Button.setMnemonic(KeyEvent.VK_C);
+            ranked1Button.setActionCommand("ranked retrieval 1");
+
+            JRadioButton ranked2Button = new JRadioButton("ranked retrieval 2");
+            ranked2Button.setBounds(275, 240, 150, 30);
+            ranked2Button.setMnemonic(KeyEvent.VK_D);
+            ranked2Button.setActionCommand("ranked retrieval 2");
+
+            group = new ButtonGroup();
+            group.add(booleanButton);
+            group.add(ranked1Button);
+            group.add(ranked2Button);
+            
+            add(booleanButton);
+            add(ranked1Button);
+            add(ranked2Button);
+            //mainFrame.revalidate();
+            
             btnAlign = new JButton("Search");
             btnAlign.setBounds(375, 280, 89, 23);
             add(btnAlign);
@@ -126,7 +155,7 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
             scrollPane.setBounds(20, 10, 750, 260);
             scrollPane.setViewportView(table);
             scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);
-            add(scrollPane);
+            //add(scrollPane);
     
     }
 
@@ -166,7 +195,13 @@ public class InvertedIndexView extends JPanel implements IInvertedIndexView, Act
     public void actionPerformed(ActionEvent ae)
     {
          input = txtSecondWord.getText();
-         controller.constructInvertedIndex();
+         switch(group.getSelection().getActionCommand())
+         {
+             case "boolean search": controller.constructInvertedIndex(); break;
+             case "ranked retrieval 1": controller.constructInvertedIndex1(); break;
+             case "ranked retrieval 2": controller.constructInvertedIndex2(); break;
+         }
+         
     }
     
         @Override
