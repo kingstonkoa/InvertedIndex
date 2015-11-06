@@ -168,6 +168,7 @@ public class InvertedIndexController {
             }
             invertedIndex.put(input, tempArrayList);
             tempArrayList = new ArrayList<>();
+            detailedDocumentList = new ArrayList<>();
             /*5**/
             CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
             OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
@@ -234,6 +235,7 @@ public class InvertedIndexController {
             }
             invertedIndex.put(input, tempArrayList);
             tempArrayList = new ArrayList<>();
+            detailedDocumentList = new ArrayList<>();
             /*5**/
             CSVOutputGenerator outputBuilder = new CSVOutputGenerator();
             OutputGenerator outputGenerator = new OutputGenerator(outputBuilder);
@@ -247,18 +249,18 @@ public class InvertedIndexController {
             documentData = txtReader.getDocumentsList();
         }
 
-    private int getDocumentFrequency(String token)
-    {
-        int df = 0;
-            for(int j = 0; j < documentData.size(); j++)
-            {
-	            if(documentData.get(j).toLowerCase().contains(token.toLowerCase()))
-                        df += 1;
-	                
-            }
-           return df;
-        
-    }
+        private int getDocumentFrequency(String token)
+        {
+            int df = 0;
+                for(int j = 0; j < documentData.size(); j++)
+                {
+                        if(documentData.get(j).toLowerCase().contains(token.toLowerCase()))
+                            df += 1;
+
+                }
+               return df;
+
+        }
 
 
 }
